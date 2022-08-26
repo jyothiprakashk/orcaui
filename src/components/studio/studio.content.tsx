@@ -9,6 +9,7 @@ import ReactFlow, {
 import { EndNode } from "../node/step/end";
 import { StartNode } from "../node/step/start";
 import { CommandNode } from "../node/step/command";
+import { CustomEdge } from "./edge";
 
 const nodeSource = [
   {
@@ -29,37 +30,31 @@ const nodeSource = [
         </>
       )
     },
-    position: { x: 200, y: 0 }
-  },
-  {
-    id: "3",
-    type: "end",
-    data: { label: "Input Node" },
-    position: { x: 400, y: 0 }
+    position: { x: 200, y: 6 }
   }
 ];
-const nodeTypes = { command: CommandNode, start: StartNode, end: EndNode };
 
 const edgeSource = [
   {
     id: "e1-2",
     source: "1",
     target: "2",
-    animated: true,
-    markerEnd: {
-      type: MarkerType.ArrowClosed
-    }
+    type: "buttonedge"
   },
   {
     id: "e1-3",
     source: "2",
     target: "3",
-    animated: true,
-    markerEnd: {
-      type: MarkerType.ArrowClosed
-    }
+
+    type: "buttonedge"
   }
 ];
+
+const nodeTypes = { command: CommandNode, start: StartNode, end: EndNode };
+
+const edgeTypes = {
+  buttonedge: CustomEdge
+};
 
 export function StudioContent() {
   const [nodes, setNodes] = useState(nodeSource);
@@ -83,6 +78,7 @@ export function StudioContent() {
         selectNodesOnDrag={false}
         maxZoom={1}
         minZoom={1}
+        edgeTypes={edgeTypes}
         style={{ backgroundColor: "#B8CEFF", position: "absolute" }}
       >
         <Background color="#aaa" gap={16} />
